@@ -11,7 +11,7 @@ public class MainClient {
 	
 	public static void main(String[] args) {
 		try {
-			SerialConnection conn3 = ArduinoFinder.getArduinoByName("arduino_uno_2");
+			SerialConnection conn3 = ArduinoFinder.getArduinoByName("arduino_uno_3");
 			ArduinoUnoCardDriver driver = new ArduinoUnoCardDriver(conn3);
 			
 			OutputPin trigger = driver.getOutputPin(2);
