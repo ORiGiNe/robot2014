@@ -16,7 +16,7 @@ public class MainClient {
 			
 			OutputPin trigger = driver.getOutputPin(2);
 			InputPin echo = driver.getInputPin(7);
-			
+			// Coucou les amis
 			UltrasonDetector detector = new UltrasonDetector(trigger, echo); 
 			
 			while(true) {
