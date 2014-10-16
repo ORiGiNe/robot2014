@@ -1,29 +1,34 @@
 package main;
 
 import network.serial.ArduinoFinder;
-import network.serial.SerialConnection;
+import drivers.base.AnalogOutputPin;
 import drivers.base.IoLevel;
 import drivers.base.OutputPin;
-import drivers.base.AnalogOutputPin;
 import drivers.cardDrivers.ArduinoUnoCardDriver;
+import drivers.components.ServoMotor;
 
 public class MainClient {
 	
 	public static void main(String[] args) {
 		try {
-			SerialConnection conn1 = ArduinoFinder.getArduinoByName("arduino_uno_2");
-			ArduinoUnoCardDriver driver1 = new ArduinoUnoCardDriver(conn1);
+			ArduinoUnoCardDriver driver = new ArduinoUnoCardDriver(ArduinoFinder.getArduinoByName("arduino_uno_1"));
 			
+			AnalogOutputPin pin11 = driver.getAnalogOutputPin(11);
+			OutputPin pin13 = driver.getOutputPin(13);
 			
-			AnalogOutputPin pin11 = driver1.getAnalogOutputPin(11);
+			ServoMotor motor = new ServoMotor(pin11);
 			
+			int angle;
 			
-			pin11.analogWrite(125);
-			Thread.sleep(5000);
-		
+			for (angle=250;angle>=0;angle=angle-10){
+				pin13.digitalWrite(IoLevel.HIGH);
+				motor.setAngle(angle);	
+				Thread.sleep(500);
+				pin13.digitalWrite(IoLevel.LOW);
+				Thread.sleep(500);
+			}
 			
-			
-			driver1.closeConnection();
+			driver.closeConnection();
 			ArduinoFinder.closeAllConnection();
 		} catch (Exception e) {
 			e.printStackTrace();

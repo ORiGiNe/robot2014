@@ -6,6 +6,13 @@ import drivers.base.IoLevel;
 import drivers.base.OutputPin;
 import drivers.base.AnalogOutputPin;
 
+/**
+ * Represents an engine
+ * Commande un moteur en fixant sa vitesse de rotation
+ * @author jonathan
+ *
+ */
+
 public class Engine {
 	
 	private OutputPin pinSens;
