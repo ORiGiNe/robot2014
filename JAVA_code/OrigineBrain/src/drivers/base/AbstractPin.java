@@ -32,12 +32,4 @@ public abstract class AbstractPin {
 	public String toString() {
 		return this.getClass().getName()+"[pinId=" + pinId + ", cardDriver=" + cardDriver.toString() + "]";
 	}
-	
-	/**
-	 * Get the pin number of this pin
-	 * @return
-	 */
-	public int getId() {
-		return this.pinId;
-	}
 }

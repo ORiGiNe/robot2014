@@ -2,27 +2,29 @@ package main;
 
 import network.serial.ArduinoFinder;
 import network.serial.SerialConnection;
-import drivers.base.InputPin;
+import drivers.base.IoLevel;
 import drivers.base.OutputPin;
+import drivers.base.AnalogOutputPin;
 import drivers.cardDrivers.ArduinoUnoCardDriver;
-import drivers.components.UltrasonDetector;
 
 public class MainClient {
 	
 	public static void main(String[] args) {
 		try {
-			SerialConnection conn3 = ArduinoFinder.getArduinoByName("arduino_uno_2");
-			ArduinoUnoCardDriver driver = new ArduinoUnoCardDriver(conn3);
+			SerialConnection conn1 = ArduinoFinder.getArduinoByName("arduino_uno_2");
+			ArduinoUnoCardDriver driver1 = new ArduinoUnoCardDriver(conn1);
 			
-			OutputPin trigger = driver.getOutputPin(2);
-			InputPin echo = driver.getInputPin(7);
-			// Coucou les amis :) :p
-			UltrasonDetector detector = new UltrasonDetector(trigger, echo); 
 			
-			while(true) {
-				System.out.println(detector.detect());
-				Thread.sleep(500);
-			}	
+			AnalogOutputPin pin11 = driver1.getAnalogOutputPin(11);
+			
+			
+			pin11.analogWrite(125);
+			Thread.sleep(5000);
+		
+			
+			
+			driver1.closeConnection();
+			ArduinoFinder.closeAllConnection();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
