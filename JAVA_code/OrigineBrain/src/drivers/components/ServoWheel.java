@@ -20,12 +20,12 @@ public class ServoWheel {
 	}
 	
 	public float vitesse() throws IOException {
-		
+		return 0;
 		
 	}
 	
 	public float distance() throws IOException {
-		
+		return 0;
 	}
 	
 
