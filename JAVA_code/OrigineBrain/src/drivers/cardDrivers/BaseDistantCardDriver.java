@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import network.interfaces.IConnectionStream;
 import drivers.base.AbstractCardDriver;
+import drivers.base.AttachInterruptOption;
 import drivers.base.IoLevel;
 import drivers.dtos.CommandDto;
 import drivers.dtos.CommandType;
@@ -74,7 +75,7 @@ public class BaseDistantCardDriver extends AbstractCardDriver {
 	}
 	
 	@Override
-	public synchronized int pulseIn(int pinId, IoLevel value, int timeout) throws IOException {
+	protected synchronized int pulseIn(int pinId, IoLevel value, int timeout) throws IOException {
 		this.sendMessage(CommandType.PULSE_IN, pinId, value.value);
 		this.stream.send(timeout);
 		int rep = (int) this.stream.receiveObject(Integer.class);
@@ -82,8 +83,25 @@ public class BaseDistantCardDriver extends AbstractCardDriver {
 	}
 	
 	@Override
-	public void pulseOut(int pinId, IoLevel level) throws IOException {
+	protected void pulseOut(int pinId, IoLevel level) throws IOException {
 		this.sendMessage(CommandType.PULSE_OUT, pinId, level.value);
+	}
+	
+	/**
+	 * execute attachInterrupt(id, count$(id), option) sur la carte
+	 * => compte le nombre de "option" dans une variable
+	 * @param id
+	 * @param option
+	 * @throws IOException
+	 */
+	public void attachInterrupt(int id, AttachInterruptOption option) throws IOException {
+		this.sendMessage(CommandType.ATTACH_INTERRUPT, id, option.id);
+	}
+	
+	public int getAttachedCount(int id) throws IOException {
+		this.sendMessage(CommandType.GET_COUNT_ATTACHE, id, (byte) 0);
+		int rep = (int) this.stream.receiveObject(Integer.class);
+		return rep;
 	}
 
 	public void closeConnection() {

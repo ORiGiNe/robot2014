@@ -2,39 +2,24 @@ package main;
 
 import network.serial.ArduinoFinder;
 import network.serial.SerialConnection;
-import drivers.base.AnalogOutputPin;
-import drivers.base.OutputPin;
+import drivers.base.AttachInterruptOption;
 import drivers.cardDrivers.ArduinoUnoCardDriver;
-import drivers.components.BasicMotorDriver;
 
 public class TestBidouille {
 	public static void main(String[] args) {
 		try {
-			SerialConnection conn = ArduinoFinder.getArduinoByName("arduino_uno_3");
+			SerialConnection conn = ArduinoFinder.getArduinoByName("arduino_uno_1");
 			ArduinoUnoCardDriver driver = new ArduinoUnoCardDriver(conn);
 			
-			OutputPin pin4 = driver.getOutputPin(4);
-			AnalogOutputPin pin5 = driver.getAnalogOutputPin(5);
+			driver.attachInterrupt(0, AttachInterruptOption.RISING);
 			
-			BasicMotorDriver motorR = new BasicMotorDriver(pin4, pin5);
-			motorR.setSens(1);
-			motorR.setVitesse(100);
-			
-			Thread.sleep(3000);
-			
-			motorR.setVitesse(0);
-			
-			Thread.sleep(3000);
-			
-			motorR.setSens(-1);
-			motorR.setVitesse(100);
-			
-			Thread.sleep(3000);
-			
-			motorR.setVitesse(0);
-			
+			while(true) {
+				System.out.println(driver.getAttachedCount(0));
+				Thread.sleep(1000);
+			}
+			/*
 			driver.closeConnection();
-			ArduinoFinder.closeAllConnection();
+			ArduinoFinder.closeAllConnection();*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

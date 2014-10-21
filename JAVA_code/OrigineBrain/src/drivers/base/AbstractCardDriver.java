@@ -66,7 +66,7 @@ public abstract class AbstractCardDriver {
 	 * @return
 	 * @throws IOException
 	 */
-	public abstract int pulseIn(int pinId, IoLevel value, int timeout) throws IOException;
+	protected abstract int pulseIn(int pinId, IoLevel value, int timeout) throws IOException;
 	
 	/**
 	 * Emmet une impultion de 10ms à level
@@ -75,7 +75,7 @@ public abstract class AbstractCardDriver {
 	 * @param value
 	 * @throws IOException
 	 */
-	public abstract void pulseOut(int pinId, IoLevel level) throws IOException;
+	protected abstract void pulseOut(int pinId, IoLevel level) throws IOException;
 	
 	// Méthodes d'obtention des pin, qui permettront d'utiliser les methodes d'I/O en portée pakage
 	

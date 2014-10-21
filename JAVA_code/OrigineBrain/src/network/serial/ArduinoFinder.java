@@ -32,7 +32,11 @@ public class ArduinoFinder {
 	public static ArduinoSerialConnection getArduinoByName(String name)
 			throws Exception {
 		detectArduino();
-		return connectionMap.get(name.toLowerCase());
+		ArduinoSerialConnection conn = connectionMap.get(name.toLowerCase());
+		if(conn == null) {
+			System.out.println("Arduino \""+name+"\" not found");
+		}
+		return conn;
 	}
 
 	/**

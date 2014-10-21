@@ -1,13 +1,14 @@
-package drivers.dtos;
+package drivers.base;
 
-public enum CommandType {
-	PIN_MODE(1), DIGITAL_READ(2), DIGITAL_WRITE(3),
-	ANALOG_READ(4), ANALOG_WRITE(5), PULSE_IN(6), PULSE_OUT(7),
-	ATTACH_INTERRUPT(8), GET_COUNT_ATTACHE(9);
+import drivers.dtos.CommandType;
+
+public enum AttachInterruptOption {
+	RISING(3), FALLING(2), CHANGE(1),
+	LOW(0);
 	
 	public byte id;
 	
-	CommandType(int val) {
+	AttachInterruptOption(int val) {
 		this.id = (byte) val;
 	}
 	
